@@ -304,7 +304,7 @@ sub print_grid {
 	print "\n\n";
 	printf "%" . ( 2 * ( $row_end - $row_start ) + $space - 15 ) . "s", "Less "; # such that the right borders align
 	print_block($_) foreach ( 0 .. 4 );
-	print " More\n";
+	print "More\n";
 
 	printf "Total Commits: %d\n", $stat{total_commits};
 	print_message( $stat{max_streak_weekdays}, $stat{max_weekdays_start}, $stat{max_weekdays_end}, "Longest streak excluding weekends" );

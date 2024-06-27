@@ -76,7 +76,7 @@ sub process_current_repo {
     }
 
     if ( !@epochs ) {
-        print "git-cal: got empty log, nothing to do\n";
+        print "git-cal: log has no activity in the past year\n";
         exit(1);
     }
     my $status;

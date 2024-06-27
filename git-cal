@@ -12,6 +12,7 @@ use Data::Dumper;
 binmode(STDOUT, ":utf8");
 # command line options
 my ( $help, $period, $use_ascii, $use_ansi, $use_unicode, $format, $author, $committer, $filepath, $all_branches );
+my $palette;
 
 GetOptions(
 	'help|?'      => \$help,
@@ -37,7 +38,7 @@ my @colors = ( 32, 37, 42, 47 );
 my @ascii = ( " ", ".", "o", "O", "0" );
 my @months = qw( Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec );
 
-configure(\$period, \$use_ascii, \$use_ansi, \$use_unicode, \$author, \$committer);
+configure(\$period, \$use_ascii, \$use_ansi, \$use_unicode, \$author, \$committer, \$palette);
 
 process();
 
@@ -64,6 +65,9 @@ sub process {
 	init_cal_stuff();
 	process_current_repo();
 	my %stats = compute_stats();
+	if ( $palette ) {
+		@colors = sprintf( "%012d", $palette ) =~ /\d{3}/g;
+	}
 	print_grid(%stats);
 }
 
@@ -382,12 +386,13 @@ sub number_of_days {
 }
 
 sub configure {
-	my ($period, $ascii, $ansi, $unicode, $author, $committer) = @_;
+	my ($period, $ascii, $ansi, $unicode, $author, $committer, $palette) = @_;
 	my @wanted;
 	push @wanted, 'format' if (not grep { defined $$_ } ($ascii, $ansi, $unicode));
 	push @wanted, 'period' if (not defined $$period);
 	push @wanted, 'author' if (not defined $$author);
 	push @wanted, 'committer' if (not defined $$committer);
+	push @wanted, 'palette' if (not defined $$palette);
 	if ( @wanted ) {
 		my $git_command = "git config --get-regexp 'calendar\.*'";
 		my @parts = split(/\s/, qx/$git_command/);
@@ -407,6 +412,7 @@ sub configure {
 				},
 				'author=s'    => $author,
 				'committer=s' => $committer,
+				'palette=n'   => $palette
 			);
 		}
 	}
@@ -493,10 +499,12 @@ Print this message.
 =head2 USING GIT CONFIG
 
 git-cal uses the git config tool to store configuration on disk.
-Similar keys are used to those listed above with the notable exception being the bundling of ascii, ansi and unicode into a "format" key.
+Similar keys are used to those listed above with the notable exceptions being the bundling of ascii, ansi and unicode into a "format" key, as well as the absence of palette as a key.
 Examples of the three supported keys are below.
 
 	git config --global calendar.format ascii
+
+	git config --global calendar.palette 032037042047
 
 	git config --global calendar.period 5
 

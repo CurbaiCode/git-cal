@@ -53,7 +53,7 @@ sub process {
 	 : $use_unicode ? 'unicode'
 	 :                 undef;
 
-	#if the user decided not to choose the format, let's pick some environmentally smart format
+	# if the user decided not to choose the format, let's pick some environmentally smart format
 	if ( !defined $format ) {
 		$format
 		 = $ENV{EMACS} ? 'unicode'
@@ -159,7 +159,7 @@ sub add_epoch {
 		my $total = ( $year % 4 ) ? 365 : 366;
 		$pos = ( $jan1 - ( $total - $yday ) );
 	}
-	return 0 if $pos < 0; #just in case
+	return 0 if $pos < 0; # just in case
 	add_to_grid( $pos, $epoch, $count );
 	return 1;
 }
@@ -211,7 +211,7 @@ sub compute_stats {
 						$max_end    = $grid[$r][$c]->{epoch};
 					}
 
-					#count++ if you work on weekends and streak will not be broken otherwise :)
+					# count++ if you work on weekends and streak will not be broken otherwise :)
 					$cur_streak_weekdays++;
 					$cur_weekdays_start ||= $grid[$r][$c]->{epoch};
 					if ( $cur_streak_weekdays > $max_streak_weekdays ) {
@@ -293,7 +293,7 @@ sub print_grid {
 		}
 	}
 	print "\n\n";
-	printf "%" . ( 2 * ( $row_end - $row_start ) + $space - 15 ) . "s", "Less ";    #such that the right borders align
+	printf "%" . ( 2 * ( $row_end - $row_start ) + $space - 15 ) . "s", "Less "; # such that the right borders align
 	print_block($_) foreach ( 0 .. 4 );
 	print " More\n";
 

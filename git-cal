@@ -297,7 +297,7 @@ sub print_grid {
 	print_block($_) foreach ( 0 .. 4 );
 	print " More\n";
 
-	printf "%4d: Total commits\n", $stat{total_commits};
+	printf "Total commits: %d\n", $stat{total_commits};
 	print_message( $stat{max_streak_weekdays}, $stat{max_weekdays_start}, $stat{max_weekdays_end}, "Longest streak excluding weekends" );
 	print_message( $stat{max_streak},          $stat{max_start},          $stat{max_end},          "Longest streak including weekends" );
 	print_message( $stat{cur_streak_weekdays}, $stat{cur_weekdays_start}, time,                    "Current streak" );
@@ -361,7 +361,7 @@ sub print_message {
 			my $s = sprintf( "%2d %3s %4d", $mday, $months[$mon], ( 1900 + $year ) );
 			push @range, $s;
 		}
-		printf "%4d: Days ( %-25s ) - %-40s\n", $days, ( join " - ", @range ), $message;
+		printf "%4d: Days ( %-25s ) - %s\n", $days, ( join " - ", @range ), $message;
 	} else {
 		printf "%4d: Days - %-40s\n", $days, $message;
 	}

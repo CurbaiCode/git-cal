@@ -128,7 +128,10 @@ sub init_cal_stuff {
 
 	$pos_month{ $month_pos{$_} } = $months[$_] foreach keys %month_pos;
 
-	die "period can only be between -11 and 12" if ( defined $period && ( $period < -11 || $period > 12 ) );
+	if ( defined $period && ( $period < -11 || $period > 12 ) ) {
+		print "fatal: period can only be between -11 and 12\n";
+		exit(2);
+	}
 	if ( !defined $period ) {
 		$start_block = $first_block;
 		$end_block   = $last_block;

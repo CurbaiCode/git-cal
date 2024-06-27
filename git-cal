@@ -265,7 +265,7 @@ sub compute_stats {
 sub print_grid {
 	my %stat = @_;
 
-	my $space = 6;
+	my $space = 2;
 	print_month_names($space);
 	foreach my $c ( 0 .. 6 ) {
 		printf "\n%" . ( $space - 2 ) . "s", "";

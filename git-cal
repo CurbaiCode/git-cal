@@ -358,7 +358,7 @@ sub print_message {
 		my @range;
 		foreach my $epoch ( $start_epoch, $end_epoch ) {
 			my ( $mday, $mon, $year ) = ( localtime($epoch) )[ 3, 4, 5 ];
-			my $s = sprintf( "%3s %2d %4d", $months[$mon], $mday, ( 1900 + $year ) );
+			my $s = sprintf( "%2d %3s %4d", $mday, $months[$mon], ( 1900 + $year ) );
 			push @range, $s;
 		}
 		printf "%4d: Days ( %-25s ) - %-40s\n", $days, ( join " - ", @range ), $message;

@@ -33,7 +33,7 @@ $filepath = shift @ARGV;
 # qw(⬚ ▢ ▤ ▣ ⬛)
 
 my @unicode = qw(▫︎ ▪︎ ◼︎ ■ █);
-my @colors = ( 246, 32, 37, 42, 47 );
+my @colors = ( 32, 37, 42, 47 );
 my @ascii = ( " ", ".", "o", "O", "0" );
 my @months = qw( Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec );
 
@@ -316,7 +316,7 @@ sub print_block {
 	 = ( $format eq "ascii" )   ? "${ascii[$index]} "
 	 : ( $format eq "unicode" ) ? "${unicode[$index]} "
 	 : ( $index eq 0 )          ? "\e[2m\x{25a0}\e[0m "
-	 :                            "\e[38;5;$colors[$index]m\x{25a0}\e[0m ";
+	 :                            "\e[38;5;$colors[$index - 1]m\x{25a0}\e[0m ";
 	print;
 }
 
